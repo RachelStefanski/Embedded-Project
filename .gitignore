@@ -1,0 +1,12 @@
+# קבצי פרויקט שלא קשורים לקוד
+ספר פרויקט משובצות רחל סטפנסקי.pdf
+רחלי סטפנסקי.docx
+תהליך עבודה משובצות.docx
+
+# תיקיית node_modules בתוך remote-boat (שהיא תיקיית תלויות)
+remote-boat/node_modules/
+
+# אזהרות נוספות מומלצות
+remote-boat/.git/
+*.bin
+.vscode/
