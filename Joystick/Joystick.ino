@@ -1,5 +1,5 @@
 #define JOYSTICK_VRX 34
-#define JOYSTICK_VRY 35
+#define JOYSTICK_VRY 19
 
 void setup() {
   Serial.begin(115200);

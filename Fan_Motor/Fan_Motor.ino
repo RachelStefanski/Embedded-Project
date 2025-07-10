@@ -62,11 +62,11 @@
 //   delay(1000);
 // }
 
-// #define FAN_RIGHT_INA 5
-// #define FAN_RIGHT_INB 4
+#define FAN_RIGHT_INA 5
+#define FAN_RIGHT_INB 4
 
-#define FAN_RIGHT_INA 23
-#define FAN_RIGHT_INB 15
+// #define FAN_RIGHT_INA 16
+// #define FAN_RIGHT_INB 17
 
 void setup() {
   // הגדרת הפינים כמוצא
@@ -94,8 +94,8 @@ void turnLeft() {
 }
 
 void loop() {
-  turnRight();
-  delay(1000);
+  // turnRight();
+  // delay(1000);
 
   turnLeft();
   delay(1000);

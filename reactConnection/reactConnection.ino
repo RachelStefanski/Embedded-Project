@@ -2,8 +2,11 @@
 #include <WebServer.h>
 
 // ===== הגדרות Wi-Fi =====
-const char* ssid = "HUAWEI-9E9A";     // שם רשת ה-Wi-Fi שלך
-const char* password = "036616258";    // סיסמת רשת ה-Wi-Fi שלך
+// const char* ssid = "HUAWEI-9E9A";     // שם רשת ה-Wi-Fi שלך
+// const char* password = "036616258";    // סיסמת רשת ה-Wi-Fi שלך
+
+const char* ssid = "Kita-2";          // שם רשת ה-Wi-Fi שלך
+const char* password = "Xnhbrrfxho";  // סיסמת רשת ה-Wi-Fi שלך
 
 // ===== אובייקט שרת ווב =====
 WebServer server(80); // השרת יאזין בפורט 80 (HTTP סטנדרטי)
