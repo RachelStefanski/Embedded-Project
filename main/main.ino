@@ -4,34 +4,34 @@
 #include <WebServer.h>
 
 // ==== הגדרות פינים =====
-#define SOIL_SENSOR_PIN 36           // חיישן רטיבות
-#define JOYSTICK_VRX 34              // ג'ויסטיק ציר X
-#define JOYSTICK_VRY 35              // ג'ויסטיק ציר Y
-#define ULTRASONIC_FRONT_TRIG 14    // אולטרסוניק קדמי - TRIG
-#define ULTRASONIC_FRONT_ECHO 27    // אולטרסוניק קדמי - ECHO
-#define ULTRASONIC_BACK_TRIG 12     // אולטרסוניק אחורי - TRIG
-#define ULTRASONIC_BACK_ECHO 13     // אולטרסוניק אחורי - ECHO
-#define ULTRASONIC_LEFT_TRIG 32     // אולטרסוניק שמאל - TRIG
-#define ULTRASONIC_LEFT_ECHO 33     // אולטרסוניק שמאל - ECHO
-#define ULTRASONIC_RIGHT_TRIG 25    // אולטרסוניק ימין - TRIG
-#define ULTRASONIC_RIGHT_ECHO 26    // אולטרסוניק ימין - ECHO
-#define MOTOR_RIGHT_INA 5           // מנוע ימין - כיוון 1
-#define MOTOR_RIGHT_INB 4           // מנוע ימין - כיוון 2
-#define MOTOR_FRONT_INA 23          // מנוע קדמי - כיוון 1
-#define MOTOR_FRONT_INB 15          // מנוע קדמי - כיוון 2
-#define PUMP_RELAY 18               // ריליי למשאבה
-#define MPU_SDA 21                  // MPU6050 - SDA
-#define MPU_SCL 22                  // MPU6050 - SCL
+#define SOIL_SENSOR_PIN 36        // חיישן רטיבות
+#define JOYSTICK_VRX 34           // ג'ויסטיק ציר X
+#define JOYSTICK_VRY 35           // ג'ויסטיק ציר Y
+#define ULTRASONIC_FRONT_TRIG 14  // אולטרסוניק קדמי - TRIG
+#define ULTRASONIC_FRONT_ECHO 27  // אולטרסוניק קדמי - ECHO
+#define ULTRASONIC_BACK_TRIG 12   // אולטרסוניק אחורי - TRIG
+#define ULTRASONIC_BACK_ECHO 13   // אולטרסוניק אחורי - ECHO
+#define ULTRASONIC_LEFT_TRIG 32   // אולטרסוניק שמאל - TRIG
+#define ULTRASONIC_LEFT_ECHO 33   // אולטרסוניק שמאל - ECHO
+#define ULTRASONIC_RIGHT_TRIG 25  // אולטרסוניק ימין - TRIG
+#define ULTRASONIC_RIGHT_ECHO 26  // אולטרסוניק ימין - ECHO
+#define MOTOR_RIGHT_INA 5         // מנוע ימין - כיוון 1
+#define MOTOR_RIGHT_INB 4         // מנוע ימין - כיוון 2
+#define MOTOR_FRONT_INA 23        // מנוע קדמי - כיוון 1
+#define MOTOR_FRONT_INB 15        // מנוע קדמי - כיוון 2
+#define PUMP_RELAY 18             // ריליי למשאבה
+#define MPU_SDA 21                // MPU6050 - SDA
+#define MPU_SCL 22                // MPU6050 - SCL
 
-// ==== קבועים ==== 
-const int COLLISION_THRESHOLD_CM = 10;    // סף התנגשות באולטרסוניק
-const int DRY_THRESHOLD = 2000;           // סף רטיבות
-const float accelThreshold = 2.5;         // סף תאוצה מסוכנת
-const float directionalAccelThreshold = 1.0; // תאוצה חזקה בכיוון אחד
-const float flipThreshold = 0.7;          // זווית התהפכות
+// ==== קבועים ====
+const int COLLISION_THRESHOLD_CM = 10;        // סף התנגשות באולטרסוניק
+const int DRY_THRESHOLD = 2000;               // סף רטיבות
+const float accelThreshold = 2.5;             // סף תאוצה מסוכנת
+const float directionalAccelThreshold = 1.0;  // תאוצה חזקה בכיוון אחד
+const float flipThreshold = 0.7;              // זווית התהפכות
 
-// ==== רשת ==== 
-WebServer server(80);                     // שרת HTTP
+// ==== רשת ====
+WebServer server(80);  // שרת HTTP
 
 // const char* ssid = "HUAWEI-9E9A";
 // const char* password = "036616258";
@@ -39,15 +39,15 @@ WebServer server(80);                     // שרת HTTP
 const char* ssid = "Kita-2";
 const char* password = "Xnhbrrfxho";
 
-// ==== MPU ==== 
+// ==== MPU ====
 MPU9250_asukiaaa mySensor;
-float baseX = 0, baseY = 0, baseZ = 0;    // כיול מצב יציב
+float baseX = 0, baseY = 0, baseZ = 0;  // כיול מצב יציב
 
-// ==== setup ==== 
+// ==== setup ====
 void setup() {
   Serial.begin(115200);
 
-  WiFi.begin(ssid, password);            // התחברות לרשת
+  WiFi.begin(ssid, password);  // התחברות לרשת
   while (WiFi.status() != WL_CONNECTED) delay(500);
   server.on("/control", handleControl);  // פקודות מהאפליקציה
   server.begin();
@@ -77,7 +77,7 @@ void setup() {
   Wire.begin(MPU_SDA, MPU_SCL);
   mySensor.setWire(&Wire);
   mySensor.beginAccel();
-  calibrateBaseline();                   // הכיול הראשוני
+  calibrateBaseline();  // הכיול הראשוני
 }
 
 // ==== טיפול בבקשת שליטה מהאפליקציה ====
@@ -107,7 +107,9 @@ void calibrateBaseline() {
     baseZ += mySensor.accelZ();
     delay(10);
   }
-  baseX /= 100; baseY /= 100; baseZ /= 100;
+  baseX /= 100;
+  baseY /= 100;
+  baseZ /= 100;
 }
 
 // ==== שלב בטיחות - החזר true אם יש סכנה ====
@@ -118,22 +120,19 @@ bool safetyControl() {
   long r = readDistanceCM(ULTRASONIC_RIGHT_TRIG, ULTRASONIC_RIGHT_ECHO);
 
   // אם יש סכנת התנגשות, הפעל את המנועים בכיוון ההפוך
-  if ((f!=-1 && f<COLLISION_THRESHOLD_CM)) {
+  if ((f != -1 && f < COLLISION_THRESHOLD_CM)) {
     Serial.println("⚠️ סכנת התנגשות קדימה - סיבוב אחורה");
     moveBackward();
     return true;
-  }
-  else if ((b!=-1 && b<COLLISION_THRESHOLD_CM)) {
+  } else if ((b != -1 && b < COLLISION_THRESHOLD_CM)) {
     Serial.println("⚠️ סכנת התנגשות אחורה - סיבוב קדימה");
     moveForward();
     return true;
-  }
-  else if ((l!=-1 && l<COLLISION_THRESHOLD_CM)) {
+  } else if ((l != -1 && l < COLLISION_THRESHOLD_CM)) {
     Serial.println("⚠️ סכנת התנגשות שמאלה - סיבוב ימינה");
     turnRight();
     return true;
-  }
-  else if ((r!=-1 && r<COLLISION_THRESHOLD_CM)) {
+  } else if ((r != -1 && r < COLLISION_THRESHOLD_CM)) {
     Serial.println("⚠️ סכנת התנגשות ימינה - סיבוב שמאלה");
     turnLeft();
     return true;
@@ -150,9 +149,9 @@ bool safetyControl() {
     return true;
   }
 
-  float dot = ax*baseX + ay*baseY + az*baseZ;
-  float magC = sqrt(ax*ax + ay*ay + az*az);
-  float magB = sqrt(baseX*baseX + baseY*baseY + baseZ*baseZ);
+  float dot = ax * baseX + ay * baseY + az * baseZ;
+  float magC = sqrt(ax * ax + ay * ay + az * az);
+  float magB = sqrt(baseX * baseX + baseY * baseY + baseZ * baseZ);
   float angle = acos(dot / (magC * magB));
 
   // אם זווית התהפכות, עצור את המנועים
@@ -171,20 +170,16 @@ bool motherControl() {
   if (lastCommand == "forward") {
     Serial.println("⬆️ אמא: קדימה");
     moveForward();
-  }
-  else if (lastCommand == "back") {
+  } else if (lastCommand == "back") {
     Serial.println("⬇️ אמא: אחורה");
     moveBackward();
-  }
-  else if (lastCommand == "left") {
+  } else if (lastCommand == "left") {
     Serial.println("⬅️ אמא: שמאלה");
     turnLeft();
-  }
-  else if (lastCommand == "right") {
+  } else if (lastCommand == "right") {
     Serial.println("➡️ אמא: ימינה");
     turnRight();
-  }
-  else {
+  } else {
     Serial.println("⏹️ אמא: עצירה");
     stopMotors();
   }
@@ -198,20 +193,16 @@ void joystickControl() {
   if (x < 100 && y > 4000) {
     Serial.println("⬆️ ג'ויסטיק: קדימה");
     moveForward();
-  }
-  else if (x > 4000 && y > 4000) {
+  } else if (x > 4000 && y > 4000) {
     Serial.println("⬇️ ג'ויסטיק: אחורה");
     moveBackward();
-  }
-  else if (y < 1000) {
+  } else if (y < 1000) {
     Serial.println("➡️ ג'ויסטיק: ימינה");
     turnRight();
-  }
-  else if (y > 3900 && x > 2900 && x < 4000) {
+  } else if (y > 3900 && x > 2900 && x < 4000) {
     Serial.println("⬅️ ג'ויסטיק: שמאלה");
     turnLeft();
-  }
-  else {
+  } else {
     Serial.println("⏹️ ג'ויסטיק: עצירה");
     stopMotors();
   }
@@ -257,11 +248,13 @@ void turnLeft() {
   digitalWrite(MOTOR_RIGHT_INB, HIGH);
 }
 
-// ==== loop ==== 
+// ==== loop ====
 void loop() {
-  if (safetyControl()) return;     // בטיחות גוברת על הכול
-  if (motherControl()) return;     // שליטת אם
-  joystickControl();               // ג'ויסטיק
-  checkSoil();                     // בדיקת רטיבות
+  if (safetyControl()) return;
+  Serial.println(WiFi.localIP());
+  // בטיחות גוברת על הכול
+  if (motherControl()) return;  // שליטת אם
+  joystickControl();            // ג'ויסטיק
+  checkSoil();                  // בדיקת רטיבות
   delay(500);
 }

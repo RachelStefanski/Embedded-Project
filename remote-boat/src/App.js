@@ -6,7 +6,7 @@ function App() {
   // === חובה לעדכן את כתובת ה-IP של ה-ESP32 כאן! ===
   // כתובת ה-IP הזו היא הכתובת שה-ESP32 מקבל כשהוא מתחבר לרשת ה-Wi-Fi שלך.
   // תוכלי למצוא אותה ב-Serial Monitor של ה-Arduino IDE לאחר שה-ESP32 מתחבר לרשת.
-const esp32IpAddress = "http://192.168.8.150"; // הוסף את "http://"
+const esp32IpAddress = "http://192.168.22.53"; // הוסף את "http://"
   const sendCommand = (command) => {
     // בונה את ה-URL לשליחת הפקודה ל-ESP32
     // לדוגמה: http://192.168.1.100/control?cmd=forward
