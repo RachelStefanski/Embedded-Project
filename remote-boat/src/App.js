@@ -1,8 +1,13 @@
 // src/App.js
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import VideoStream from './videoStream';
+import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+
+
 
 function App() {
+  const videoStreamRef = useRef(null); // ה-ref לרכיב VideoStream
+
   // === חובה לעדכן את כתובת ה-IP של ה-ESP32 כאן! ===
   // כתובת ה-IP הזו היא הכתובת שה-ESP32 מקבל כשהוא מתחבר לרשת ה-Wi-Fi שלך.
   // תוכלי למצוא אותה ב-Serial Monitor של ה-Arduino IDE לאחר שה-ESP32 מתחבר לרשת.
@@ -34,11 +39,12 @@ const esp32IpAddress = "http://192.168.22.53"; // הוסף את "http://"
           ייתכן שתצטרכי לציין את כתובת ה-IP המלאה של ה-ESP32-CAM גם כאן,
           לדוגמה: src={`${esp32IpAddress}/stream`}
         */}
-        <img
+        {/* <img
           src="/stream"
           alt="Live Stream"
           style={{ width: '100%', maxWidth: '600px', borderRadius: '12px', border: '2px solid #007bff' }}
-        />
+        /> */}
+        <VideoStream ref={videoStreamRef} />
       </div>
 
       {/* כפתורי שליטה */}
@@ -59,3 +65,5 @@ const esp32IpAddress = "http://192.168.22.53"; // הוסף את "http://"
 }
 
 export default App;
+
+

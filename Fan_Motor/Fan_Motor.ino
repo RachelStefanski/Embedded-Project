@@ -62,8 +62,8 @@
 //   delay(1000);
 // }
 
-#define FAN_RIGHT_INA 5
-#define FAN_RIGHT_INB 4
+#define FAN_RIGHT_INA 15
+#define FAN_RIGHT_INB 23
 
 // #define FAN_RIGHT_INA 16
 // #define FAN_RIGHT_INB 17
@@ -72,7 +72,6 @@ void setup() {
   // הגדרת הפינים כמוצא
   pinMode(FAN_RIGHT_INA, OUTPUT);
   pinMode(FAN_RIGHT_INB, OUTPUT);
-
   Serial.begin(115200);
 }
 
@@ -94,8 +93,8 @@ void turnLeft() {
 }
 
 void loop() {
-  // turnRight();
-  // delay(1000);
+  turnRight();
+  delay(1000);
 
   turnLeft();
   delay(1000);
